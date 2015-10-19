@@ -53,6 +53,10 @@ inoremap <C-b> <ESC>:call PhpDocSingle()<CR>i
 nnoremap <C-b> :call PhpDocSingle()<CR>
 vnoremap <C-b> :call PhpDocRange()<CR>
 
+"Allow for Visual mode to move blocks like a GUI
+vnoremap <tab> >gv
+vnoremap <S-tab> <gv
+
 nnoremap <tab> >>
 nnoremap <S-tab> <<
 "ARROW KEY TAB NAVIGATION
