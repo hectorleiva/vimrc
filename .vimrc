@@ -99,6 +99,8 @@ autocmd BufWritePre *.{java,css,scss,php,js} :call TrimWhiteSpace()
 
 "Change spacing according to filetype
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType coffeescript setlocal shiftwidth=2 tabstop=2
+autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 
 "Highlight White Spaces at the end of the line while you are typing
 match WarningMsg /\s\+$/
