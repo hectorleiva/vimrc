@@ -3,7 +3,6 @@ syntax enable
 filetype plugin indent on
 
 "From Francis. Thanks Francis!
-
 set nu
 set expandtab
 set tabstop=4
@@ -20,45 +19,56 @@ set colorcolumn=80
 
 syntax on
 
-" Custom
 set background=dark
 set noerrorbells
-set visualbell
-colorscheme solarized
 
-"Powerline Fonts | Airline Configurations
-"that bottom toolbar that shows up with all the stats
-let g:airline_powerline_fonts=1
-let g:airline#extensions#branch#enabled=1
+"FZF
+set rtp+=/usr/local/opt/fzf
+nmap ; :Buffers<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>r :Tags<CR>
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~35%' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+"SiverSearch
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 "NeoComplcache Autocomplete functionality
-let g:neocomplcache_enable_at_startup=1
+let g:neocomplcache_enable_at_startup = 1
 
-function! s:DiffWithSaved() 
-    let filetype=&ft 
-    diffthis 
-    vnew | r # | normal!  1Gdd 
-    diffthis 
-    exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype 
-endfunction
+"JSX Syntax for normal .js files
+let g:jsx_ext_required = 1
 
 highlight clear SignColumn
 
-com! DiffSaved call s:DiffWithSaved() 
-
-nnoremap <C-d> :DiffSaved
-
-"PHP Documenator
-inoremap <C-b> <ESC>:call PhpDocSingle()<CR>i
-nnoremap <C-b> :call PhpDocSingle()<CR>
-vnoremap <C-b> :call PhpDocRange()<CR>
-
-"Allow for Visual mode to move blocks like a GUI
-vnoremap <tab> >gv
-vnoremap <S-tab> <gv
-
 nnoremap <tab> >>
 nnoremap <S-tab> <<
+vnoremap <tab> >gv
+vnoremap <S-tab> <gv
 "ARROW KEY TAB NAVIGATION
 nnoremap [1;6D :tabp
 nnoremap [1;6C :tabn
@@ -67,8 +77,8 @@ nnoremap <C-o> :tabfind
 "Open new tab in current directory
 nnoremap <C-t> :tabf %:p:h
 "Comments | Best usage for <C-c> to start and then to end with <C-l>
-"nnoremap <C-c> O/** *  */kA
-"nnoremap <C-l> o*  
+nnoremap <C-c> O/** *  */kA
+nnoremap <C-l> o*  
 nnoremap ç i<!--  -->hhhi
 "Other
 "Get the current file name and directory
@@ -81,26 +91,23 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 "Insert mode
 inoremap <C-d> :DiffSaved
-inoremap [1;6D :tabp
-inoremap [1;6C :tabn
 inoremap <C-o> :tabfind 
-inoremap <C-t> :tabf %:p:h
+"inoremap <C-t> :tabf %:p:h
 inoremap <C-c> O/** *  */kA
 inoremap <C-l> *  
+"Firefox VimTab Navigation
+nnoremap <C-S-tab> :tabprevious
+nnoremap <C-tab> :tabnext
+inoremap <C-S-tab> <Esc>:tabprevious
+inoremap <C-tab> <Esc>:tabnext
 
-"Trim Whitespaces from the end of lines
-function! TrimWhiteSpace()
-    normal mz
-    :%s/\s\+$//e
-    normal `z
-:endfunction
+"Map Space to the leader
+map <Space> <leader>
 
-autocmd BufWritePre *.{java,css,scss,php,js} :call TrimWhiteSpace()
+"Open and Close NerdTree
+nmap <leader>q :NERDTreeToggle<CR>
 
-"Change spacing according to filetype
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-autocmd FileType coffeescript setlocal shiftwidth=2 tabstop=2
-autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
+"autocmd BufWritePre *.{java,css,scss,php,js} :call TrimWhiteSpace()
 
 "Highlight White Spaces at the end of the line while you are typing
 match WarningMsg /\s\+$/
@@ -110,9 +117,61 @@ set splitbelow
 set splitright
 
 "Automatic bracket settings
-:inoremap ( ()<Esc>i
-:inoremap [ []<Esc>:let leavechar="]"<CR>i
-:inoremap { {<CR><BS>}<ESC>ko
+"autocmd FileType javascript,php,java,scss,sass,css :inoremap ( ()<Esc>i
+"autocmd FileType javascript,php,java,scss,sass,css :inoremap [ []<Esc>:let leavechar="]"<CR>i
+"autocmd FileType php,java,scss,sass,css :inoremap { {<CR><BS>}<ESC>ko
 
-let g:badwolf_darkgutter = 1
-let g:badwolf_tabline = 3
+" ALE
+let g:ale_sign_warning = '▲'
+let g:ale_sign_error = '✗'
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
+
+" Lightline
+let g:lightline = {
+\ 'colorscheme': 'powerline',
+\ 'active': {
+\   'left': [['mode', 'paste'], ['filename', 'modified']],
+\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+\ },
+\ 'component_expand': {
+\   'linter_warnings': 'LightlineLinterWarnings',
+\   'linter_errors': 'LightlineLinterErrors',
+\   'linter_ok': 'LightlineLinterOK'
+\ },
+\ 'component_type': {
+\   'readonly': 'error',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error'
+\ },
+\ }
+
+function! LightlineLinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
+endfunction
+
+function! LightlineLinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
+endfunction
+
+function! LightlineLinterOK() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '✓ ' : ''
+endfunction
+
+autocmd User ALELint call s:MaybeUpdateLightline()
+
+" Update and show lightline but only if it's visible (e.g., not in Goyo)
+function! s:MaybeUpdateLightline()
+  if exists('#lightline')
+    call lightline#update()
+  end
+endfunction

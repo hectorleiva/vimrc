@@ -1,6 +1,9 @@
-### Hector's .vimrc
+### Hector's vim set-up
 
-This .vimrc is intended for sharing what I really like about my vim set-up for
-any and all other machines in which I would like to use it. Currently I'm using
-[pathogen](https://github.com/tpope/vim-pathogen) for all my bundle package
-installations.
+Uses [pathogen](https://github.com/tpop/vim-pathogen) with a lot of other bundles.
+
+```bash
+curl https://raw.githubusercontent.com/hectorleiva/vimrc/master/fresh-install.sh | /bin/bash
+```
+
+Thanks Franics.
