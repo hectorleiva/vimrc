@@ -1,4 +1,16 @@
-execute pathogen#infect()
+call plug#begin('~/.vim/plugged')
+Plug 'https://github.com/tpope/vim-fugitive'
+Plug 'scrooloose/nerdtree'
+Plug 'w0rp/ale'
+Plug 'mileszs/ack.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'palantir/tslint'
+Plug 'isruslan/vim-es6'
+Plug 'airblade/vim-gitgutter'
+Plug 'pangloss/vim-javascript'
+Plug 'ajh17/vimcompletesme'
+call plug#end()
+
 syntax enable
 filetype plugin indent on
 
