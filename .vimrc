@@ -1,9 +1,5 @@
-"execute pathogen#infect()
-
 call plug#begin('~/.vim/plugged')
 Plug 'tomasr/molokai'
-Plug 'fmoralesc/molokayo'
-
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'scrooloose/nerdtree'
