@@ -1,18 +1,39 @@
+"execute pathogen#infect()
+
 call plug#begin('~/.vim/plugged')
+Plug 'tomasr/molokai'
+Plug 'fmoralesc/molokayo'
+
 Plug 'https://github.com/tpope/vim-fugitive'
+Plug 'tpope/vim-sensible'
 Plug 'scrooloose/nerdtree'
 Plug 'w0rp/ale'
 Plug 'mileszs/ack.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'shougo/neocomplete.vim'
 Plug 'palantir/tslint'
+Plug 'leafgarland/typescript-vim'
 Plug 'isruslan/vim-es6'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf'
 Plug 'airblade/vim-gitgutter'
 Plug 'pangloss/vim-javascript'
+Plug 'briancollins/vim-jst'
+Plug 'kshenoy/vim-signature'
+Plug 'kuniwak/vint'
+Plug 'vim-erlang/vim-erlang-compiler'
+Plug 'sheerun/vim-polyglot'
 Plug 'ajh17/vimcompletesme'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'ajh17/vimcompletesme'
+
+"Initialize plugin system
 call plug#end()
 
 syntax enable
 filetype plugin indent on
+
+colorscheme molokai
 
 "From Francis. Thanks Francis!
 set nu
@@ -36,9 +57,11 @@ set noerrorbells
 
 "FZF
 set rtp+=/usr/local/opt/fzf
-nmap ; :Buffers<CR>
-nmap <Leader>t :Files<CR>
-nmap <Leader>r :Tags<CR>
+nmap ; :buffers<CR>
+nmap <Leader>t :files<CR>
+nmap <Leader>r :tags<CR>
+
+let b:vcm_tab_complete = 1
 
 " Default fzf layout
 " - down / up / left / right
@@ -96,7 +119,7 @@ nnoremap ç i<!--  -->hhhi
 "Get the current file name and directory
 nnoremap <C-?> :echo bufname("%")
 nnoremap <C-p> :!php -nl %
-"Keymapping for Splits
+"Keymapping for Split Navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -119,19 +142,12 @@ map <Space> <leader>
 "Open and Close NerdTree
 nmap <leader>q :NERDTreeToggle<CR>
 
-"autocmd BufWritePre *.{java,css,scss,php,js} :call TrimWhiteSpace()
-
 "Highlight White Spaces at the end of the line while you are typing
 match WarningMsg /\s\+$/
 
 "Split New Panels more like Sublime Text 2
 set splitbelow
 set splitright
-
-"Automatic bracket settings
-"autocmd FileType javascript,php,java,scss,sass,css :inoremap ( ()<Esc>i
-"autocmd FileType javascript,php,java,scss,sass,css :inoremap [ []<Esc>:let leavechar="]"<CR>i
-"autocmd FileType php,java,scss,sass,css :inoremap { {<CR><BS>}<ESC>ko
 
 " ALE
 let g:ale_sign_warning = '▲'
@@ -141,7 +157,6 @@ highlight link ALEErrorSign Title
 
 " Lightline
 let g:lightline = {
-\ 'colorscheme': 'powerline',
 \ 'active': {
 \   'left': [['mode', 'paste'], ['filename', 'modified']],
 \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
