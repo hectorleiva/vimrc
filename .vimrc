@@ -1,5 +1,6 @@
+"execute pathogen#infect()
+
 call plug#begin('~/.vim/plugged')
-Plug 'tomasr/molokai'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'scrooloose/nerdtree'
@@ -23,13 +24,16 @@ Plug 'ajh17/vimcompletesme'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ajh17/vimcompletesme'
 
+"Intellisense
+Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install() } } "Latest Release
+Plug 'ianks/vim-tsx'
+Plug 'briancollins/vim-jst'
+
 "Initialize plugin system
 call plug#end()
 
 syntax enable
 filetype plugin indent on
-
-colorscheme molokai
 
 "From Francis. Thanks Francis!
 set nu
@@ -52,7 +56,6 @@ set background=dark
 set noerrorbells
 
 "FZF
-set rtp+=/usr/local/opt/fzf
 nmap ; :buffers<CR>
 nmap <Leader>t :files<CR>
 nmap <Leader>r :tags<CR>
@@ -85,9 +88,6 @@ let g:fzf_colors =
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-"SiverSearch
-let g:ackprg = 'ag --nogroup --nocolor --column'
-
 "NeoComplcache Autocomplete functionality
 let g:neocomplcache_enable_at_startup = 1
 
@@ -108,7 +108,7 @@ nnoremap <C-o> :tabfind
 "Open new tab in current directory
 nnoremap <C-t> :tabf %:p:h
 "Comments | Best usage for <C-c> to start and then to end with <C-l>
-nnoremap <C-c> O/** *  */kA
+nnoremap <C-c> O/** *  */kA
 nnoremap <C-l> o*  
 nnoremap ç i<!--  -->hhhi
 "Other
@@ -124,8 +124,8 @@ nnoremap <C-H> <C-W><C-H>
 inoremap <C-d> :DiffSaved
 inoremap <C-o> :tabfind 
 "inoremap <C-t> :tabf %:p:h
-inoremap <C-c> O/** *  */kA
-inoremap <C-l> *  
+inoremap <C-c> O/** *  */kA
+inoremap <C-l> *
 "Firefox VimTab Navigation
 nnoremap <C-S-tab> :tabprevious
 nnoremap <C-tab> :tabnext
