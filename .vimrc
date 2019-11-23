@@ -1,5 +1,3 @@
-"execute pathogen#infect()
-
 call plug#begin('~/.vim/plugged')
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
@@ -54,6 +52,11 @@ syntax on
 
 set background=dark
 set noerrorbells
+
+"Remap Buffer jumps
+nmap gn :bn<CR>
+nmap gp :bp<CR>
+nmap gm :bd<CR>
 
 "FZF
 nmap ; :buffers<CR>
@@ -198,3 +201,16 @@ function! s:MaybeUpdateLightline()
     call lightline#update()
   end
 endfunction
+
+"Intellisense
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
