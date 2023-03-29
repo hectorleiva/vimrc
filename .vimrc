@@ -18,9 +18,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'kuniwak/vint'
 Plug 'vim-erlang/vim-erlang-compiler'
 Plug 'sheerun/vim-polyglot'
-Plug 'ajh17/vimcompletesme'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'ajh17/vimcompletesme'
 
 "Intellisense
 Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install() } } "Latest Release
